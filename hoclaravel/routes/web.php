@@ -59,8 +59,11 @@ Route::get('/', function(){
 // Route::view('show-form', 'form'); // chỉ sử cho phương thức GET 
 
 Route::prefix('admin')->group(function(){
-    Route::get('/unicode', function (){
-        return 'Phương thức Get của path/unicode';
+    Route::get('/tin-tuc/{slug}-{id}', function ($id=null, $slug=null){
+        $content = 'Phương thức Get của path/unicode với tham số: ';
+        $content .= 'id = '.$id.'<br/>';
+        $content .= 'slug = '.$slug;
+        return $content;
     });
     
     Route::get('show-form', function(){
