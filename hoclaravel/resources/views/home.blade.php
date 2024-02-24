@@ -1,16 +1,23 @@
-<h1 style="text-align: center;">Học lập trình Laravel tại Unicode </h1>
-<a href="<?php echo route('admin.tintuc', ['id'=>1, 'slug'=>'tin-tuc-the-gioi']); ?>">Xem tin tuc</a>
-
-<!-- <?php
-// echo date('Y-m-d H:i:s');
-// echo env('APP_ENV');
-// echo config('app.env');
-
-if (env('APP_ENV')=='production'){
-    //Call api live
-    echo 'Call api live';
-}else{
-    //Call api sandbox
-    echo 'Call api sandbox';
-}
-?> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicode - Học lập trình web cơ bản</title>
+</head>
+<body>
+    <header>
+        <h1>HEADER - UNICODE</h1>
+        <h2><?php echo $title; ?></h2>
+    </header>
+    <main>
+        <h1>NỘI DUNG - UNICODE</h1>
+        <h2>
+            <?php echo $content; ?>
+        </h2>
+    </main>
+    <header>
+        <h1>FOOTER - UNICODE</h1>
+    </header>
+</body>
+</html>
