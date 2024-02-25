@@ -7,12 +7,75 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
     //
-    public function __construct(){
-
+    public function __construct(Request $request){
+        /*
+        Nếu là trang danh sách chuyên mục => Hiện thị ra dòng chữ 'xin chào unicode'
+        */
+        // if ($request->is('categories')){
+        //     echo '<h3>Xin chào unicode</h3>';
+        // }
     }
     
     //Hiển thị danh sách chuyên mục (Phương thức GET)
-    public function index(){
+    public function index(Request $request){
+        // if(isset($_GET['id'])){
+        //      echo $_GET['id'];
+        // }
+
+        // 1. Phương thức $request->all();
+        // $allData = $request->all();
+        // echo $allData['id'];
+        // dd($allData);
+        
+        // 2. Phương thức $request->path();
+        // $path = $request->path();
+        // echo $path;
+
+        // 4. Phương thức $request->url() & $requét->fullUrl();
+        // $url = $request->url(); // Nó sẽ lấy những thông tin trước dấu ? (Lấy pthức, gthức và tên miền, path)
+        // $fullUrl = $request->fullUrl(); // Lấy tất cả các thông tin trên URL
+        // echo $fullUrl;
+
+        // 5. Phương thức $request->methid();
+        // $method = $request->method(); // Kiểm tra phương thức đang sd
+        // echo $method;
+        // if($request->isMethod('GET')){
+        //     echo 'Phương thức GET';
+        // }
+
+        // 6. Phương thức $request->ip();
+        // $ip = $request->ip();
+        // echo 'IP là: '.$ip;
+
+        // 7. Phương thức $request->server(); ->Lấy tt của biến $server và trả về array
+        // $server = $request->server();
+        // dd($server['REQUEST_URI']);
+
+        // 8. Phương thức $request->header(); -> Lấy tt của header 
+        // $header = $request->header();
+        // dd($header);
+
+        // 8. Phương thức $request->input();
+        // $input = $request->input();
+        // dd($input);
+
+        // $id = $request->input('id')['0']; // Trả về array/ từng phần tử của array 
+        // dd($id);
+
+        // $id = $request->input('id.1.email'); //đối với 2 chiều ->/categories?id[][name]=nguyen+hoai&id[][email]=hoai@gmail.com
+        // $id = $request->input('id.*.name'); //Lấy tên nhiều mảng
+        // dd($id);
+
+        // 9. Phương thức $request->name();
+        // $id = $request->name; // Hiển thị ra tt muốn lấy (name/id)
+        // dd($id);
+
+        dd(request()->id);
+
+        $name = request('name'); //categories?id[]=1&id[]=2&name=hoai
+        dd($name);
+
+
         return view('clients/categories/list');
     }
 
@@ -32,8 +95,16 @@ class CategoriesController extends Controller
     }
     
     //Thêm DL vào chuyên mục (Phương thức POST)
-    public function handleAddCategory(){
-        return 'Submit thêm chuyên mục';
+    public function handleAddCategory(Request $request){
+        // $allData = $request->all();
+        // dd($allData);
+
+        // if($request->isMethod('POST')){
+        //     echo 'Phương thức POST';
+        // }
+        // print_r($_POST);
+        // return redirect(route('categories.add'));
+        // return 'Submit thêm chuyên mục';
     }
 
     //Xóa DL (Phương thức DELETE)
