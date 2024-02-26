@@ -71,11 +71,8 @@ class CategoriesController extends Controller
         // dd($id);
 
         dd(request()->id);
-
         $name = request('name'); //categories?id[]=1&id[]=2&name=hoai
         dd($name);
-
-
         return view('clients/categories/list');
     }
 
@@ -90,7 +87,10 @@ class CategoriesController extends Controller
     }
 
     //Show form thêm DL (Phương thức GET)
-    public function addCategory(){
+    public function addCategory(Request $request){
+        // $path = $request->path();
+        // echo $path;
+        //$cateName = $request->old('category_name');
         return view('clients/categories/add');
     }
     
@@ -105,10 +105,63 @@ class CategoriesController extends Controller
         // print_r($_POST);
         // return redirect(route('categories.add'));
         // return 'Submit thêm chuyên mục';
+
+        // 10. Phương thức $request->query(); 
+        // $cateName = $request->query(); 
+        // dd($cateName);
+
+        // 11. Phương thức $request->has();
+        // if ($request->has('category_name')){
+        //     $cateName = $request->category_name;
+        //     dd($cateName);
+        // }else{
+        //     return 'Không có category_name';
+        // }
+
+        // 12. Phương thức $request->flash();-> Đưa all DL input vào trong session. Nó chỉ tồn tại trong tg ngắn khi nó đã hiển thị ra rồi -> load -> sẽ mất
+        if ($request->has('category_name')){
+            $cateName = $request->category_name;
+            $request->flash(); //set session flash 
+            return redirect(route('categories.add'));
+        }else{
+            return 'Không có category_name';
+        }
     }
 
     //Xóa DL (Phương thức DELETE)
     public function deleteCategory($id){
         return 'Submit xóa chuyên mục: '.$id;
+    }
+
+    public function getFile(){
+        return view('clients/categories/file');
+    }
+
+    //Xử lý lấy thông tin file 
+    public function handleFile(Request $request){
+        // $file = $request->file('photo');
+
+        // Kiểm tra file đã được đẩy lên server chưa 
+        if($request->hasFile('photo')){
+            if($request->photo->isValid()){   // isValid -> Ktra file đã upload thành công chưa 
+                $file = $request->photo;
+                // $path = $file->path();
+                $ext = $file->extension();  // Lấy tt đuôi image
+                // $path = $file->store('images'); // Mục đích sex lưu image từ server -> local (storate/add/images)
+                // $path = $file->storeAs('images', 'anh1.png'); // Phương thức storeAs -> đổi tên thành 1 tên khác
+                // dd($path);
+
+                // Lấy tên gốc file khi mh chọn 
+                $fileName = $file->getClientOriginalName();
+                dd($fileName);
+
+                // Đổi tên 
+                // $fileName = md5(uniqid()). '.' .$ext;
+            }else{
+                return 'Upload không thành công';
+            } 
+        }else{
+            return 'Vui lòng chọn file';
+        }
     }
 }
