@@ -19,7 +19,7 @@ use App\Http\Controllers\HomeController;
 */
 
 //Client Route
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth.admin');
+Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware('auth.admin')->prefix('categories')->group(function () {
     //Danh sách chuyên mục 

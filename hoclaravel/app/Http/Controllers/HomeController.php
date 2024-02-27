@@ -9,41 +9,23 @@ use Illuminate\Support\Facades\View;
 class HomeController extends Controller
 {
     //Action index()
+    public $data = [];
     public function index(){
-        $title = "Học lập trình web tại Unicode";
-        $content = 'Học lập trình Laravel 8.x tại Unicode';
-        /*
-        [
-            'title' => $title,
-            'content' => $content
-        ]
-        compact('title', 'content')
-        */
-        return view('home')->with(['title'=>$title, 'content'=>$content]);
 
-        // $dataView = [
-        //     'titleData' => $title,
-        //     'contentData' => $content
-        // ];
-        // return view('home', $dataView); //load view home.php
+        $this->data['welcome'] = 'Học lập trình Laravel tại <b>Unicode</b>';
+        $this->data['content'] = '<h3>Chương 1: Nhập môn Laravel</h3>
+        <p>Kiến thức 1</p>
+        <p>Kiến thức 2</p>
+        <p>Kiến thức 3</p>';
 
-        // return View::make('home')->with(['title'=>$title, 'content'=>$content]);
+        $this->data['index'] = 1;
+        $this->data['dataArr'] = [
+            // 'Item 1',
+            // 'Item 2',
+            // 'Item 3'
+        ];
+        $this->data['number'] = 30;
 
-        // $contentView = view('home');
-        // // $contentView = $contentView ->render(); //chuyển chuỗi thành html thô -> in pdf
-        // dd($contentView);
-        // return $contentView;
-    }
-    
-    //Action getNews()
-    public function getNews(){
-        return 'Danh sách tin tức ';
-    }
-    public function getCategories($id){
-        return 'Chuyên mục: '.$id;
-    }
-
-    public function getProductDetail($id){
-        return view('clients/products/detail', compact('id'));
+        return view('home', $this->data);
     }
 }
