@@ -36,7 +36,7 @@ class CategoriesController extends Controller
         // $fullUrl = $request->fullUrl(); // Lấy tất cả các thông tin trên URL
         // echo $fullUrl;
 
-        // 5. Phương thức $request->methid();
+        // 5. Phương thức $request->method();
         // $method = $request->method(); // Kiểm tra phương thức đang sd
         // echo $method;
         // if($request->isMethod('GET')){
