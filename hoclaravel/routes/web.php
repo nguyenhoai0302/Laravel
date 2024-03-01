@@ -47,7 +47,7 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
     Route::post('/upload', [CategoriesController::class, 'handleFile'])->name('categories.upload');
 });
 
-Route::get('/san-pham', [HomeController::class, 'products']);
+Route::get('/san-pham', [HomeController::class, 'products'])->name('product');
 Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
 
 // Admin Route
