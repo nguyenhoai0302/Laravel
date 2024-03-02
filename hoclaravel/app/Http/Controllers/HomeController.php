@@ -55,4 +55,17 @@ class HomeController extends Controller
 
         return view('home', $this->data);
     }
+
+    public function getAdd(){
+        $this->data['title'] = 'Thêm sản phẩm';
+        return view('clients.add', $this->data);
+    }
+    public function postAdd(Request $request){
+        dd($request);
+    }
+    public function putAdd(Request $request){
+        return 'Phuong thuc put';
+        dd($request);
+    }
+    // 1. Stack -> 
 }
