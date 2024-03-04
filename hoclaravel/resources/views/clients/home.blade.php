@@ -12,7 +12,7 @@
     @datetime('2024-3-2 21:45:00')
     @include('clients.contents.slide')
     @include('clients.contents.about')
-    @datetime('2024-3-2 21:50:00');
+    @datetime('2024-3-2 21:50:00')
 
     @env('production')
         <p>Môi trường production</p>
@@ -21,6 +21,10 @@
     @else
         <p>Môi trường dev</p>
     @endenv
+
+    <x-alert type="info" :content="$message" data-icon="youtube" />
+    {{-- <x-inputs.button />
+    <x-forms.button /> --}}
 @endsection
 
 @section('css')
