@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\View\Components\Alert;
+use App\View\Components\Inputs\Button;
 use DateObjectError;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });   
+
         Blade::directive('datetime', function($expression){
             $expression = trim($expression, '\'');
             $expression = trim($expression, '"');
@@ -38,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
             }
             return false; 
         });
+
+        Blade::component('package-alert', Alert::class);
+        Blade::component('button', Button::class);
+
     }
 }
