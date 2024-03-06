@@ -65,11 +65,21 @@ Route::get('/demo-response', function() {
 
 Route::get('lay-thong-tin', [Home1Controller::class, 'getArr']);
 Route::get('/demo-response', function () {
-    //return view('client.demo-test');
-    $response = response()->view('client.demo-test',[
-        'title' => 'Học Http tại Unicode'
-    ],201)->header('Content-Type','application/json');
-    return  $response; 
+    // $contentArr = ['name' => 'Unicode', 'version' => 'Laravel 8.x', 'lesson' => 'HTTP Respon Laravel'];
+    // return $contentArr;
+    // return response() -> json ($contentArr)->header("Api-Key", '1234');
+
+    return view('clients.demo-test');
+})->name('demo-response');
+
+Route::post('/demo-response', function(Request $request){
+    if(!empty($request->username)){
+        // return redirect()->route('demo-response');
+        // return route('demo-response'); // truyền tên vào
+        return back()->withInput() -> with('mess', 'Validate thành công'); //lấy ra các danh sách vừa input
+    }
+    return redirect(route('demo-response'))-> with('mess', 'Validate không thành công'); // with -> truyền một thông báo
+
 });
 
 // Admin Route
