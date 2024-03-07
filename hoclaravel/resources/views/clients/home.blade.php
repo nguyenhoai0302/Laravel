@@ -25,9 +25,18 @@
     <x-alert type="info" :content="$message" data-icon="youtube" />
     {{-- <x-inputs.button />
     <x-forms.button /> --}}
+    <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREDKaFNDLN0eaxl6ZU48vHCZCMi5s7zPqIW-yLRZKyrk5Xz04_jUJOV-YTNROWsqON4S0&usqp=CAU"></p>
+    <p><a href="{{route('download-image').'?image='. public_path('storage/image_65e9d29356363.jpg')}}" class="btn btn-primary">Download ảnh</a></p>
+    <p><a href="{{route('download-doc').'?file='. public_path('storage/demo-pdf.pdf')}}" class="btn btn-primary">Download tài liệu</a></p>
 @endsection
 
 @section('css')
+        <style>
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
 @endsection
 
 @section('js')
