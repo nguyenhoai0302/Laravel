@@ -79,8 +79,10 @@ Route::post('/demo-response', function(Request $request){
         return back()->withInput() -> with('mess', 'Validate thành công'); //lấy ra các danh sách vừa input
     }
     return redirect(route('demo-response'))-> with('mess', 'Validate không thành công'); // with -> truyền một thông báo
-
 });
+
+Route::get('download-image', [Home1Controller::class, 'downloadImage'])->name('download-image');
+Route::get('download-doc', [Home1Controller::class, 'downloadDoc'])->name('download-doc');
 
 // Admin Route
 // Route::middleware('auth.admin')->prefix('admin')->group(function () {
