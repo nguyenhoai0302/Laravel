@@ -81,8 +81,8 @@ Route::put('them-san-pham', [HomeController::class, 'putAdd']);
 //     return redirect(route('demo-response'))-> with('mess', 'Validate không thành công'); // with -> truyền một thông báo
 // });
 
-// Route::get('download-image', [Home1Controller::class, 'downloadImage'])->name('download-image');
-// Route::get('download-doc', [Home1Controller::class, 'downloadDoc'])->name('download-doc');
+Route::get('download-image', [Home1Controller::class, 'downloadImage'])->name('download-image');
+Route::get('download-doc', [Home1Controller::class, 'downloadDoc'])->name('download-doc');
 
 // Admin Route
 // Route::middleware('auth.admin')->prefix('admin')->group(function () {
