@@ -63,7 +63,8 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
     public function postAdd(ProductRequest $request){
-        dd($request);
+
+        dd($request->all());
 
         // C1
         // $request->validate([
