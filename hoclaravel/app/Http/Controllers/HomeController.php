@@ -67,8 +67,10 @@ class HomeController extends Controller
     public function postAdd(Request $request){
         // C2
         $rules =  [
-            'product_name' => ['required', 'min:6', new Uppercase], 
-            'product_price' => ['required', 'integer', new Uppercase]
+            'product_name' => ['required', 'min:6', function($attribute, $value, $fail ){
+                isUppercase($value, 'Trường :attribute không hợp lệ', $fail);
+            }], 
+            'product_price' => ['required', 'integer']
         ];
          // Cách 1
         // $messages = [
@@ -126,5 +128,4 @@ class HomeController extends Controller
         return 'Phuong thuc put';
         dd($request);
     }
-    // 1. Stack -> 
 }
