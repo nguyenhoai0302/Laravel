@@ -92,6 +92,8 @@ Route::get('download-doc', [Home1Controller::class, 'downloadDoc'])->name('downl
 // });
 
 // Người dùng
-Route::prefix('users')->group(function (){
-    Route::get('/', [UsersController::class, 'index']);
+Route::prefix('users')->name('users.')->group(function (){
+    Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::get('/add', [UsersController::class, 'add'])->name('add');
+    Route::post('/add', [UsersController::class, 'postAdd'])->name('post-add');
 });
