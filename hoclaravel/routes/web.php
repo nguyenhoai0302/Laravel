@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Home1Controller;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,3 +90,8 @@ Route::get('download-doc', [Home1Controller::class, 'downloadDoc'])->name('downl
 //     Route::get('/', [DashboardController::class, 'index']);
 //     Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
 // });
+
+// Người dùng
+Route::prefix('users')->group(function (){
+    Route::get('/', [UsersController::class, 'index']);
+});
