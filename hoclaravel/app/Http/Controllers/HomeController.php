@@ -64,27 +64,18 @@ class HomeController extends Controller
         $this->data['errorMessage'] = "Vui lòng kiểm tra lại dữ liệu";
         return view('clients.add', $this->data);
     }
-    public function postAdd(Request $request){
+    public function postAdd(ProductRequest $request){
+        // return 'ok';
         // C2
         $rules =  [
-            'product_name' => ['required', 'min:6', function($attribute, $value, $fail ){
-                isUppercase($value, 'Trường :attribute không hợp lệ', $fail);
-            }], 
+            'product_name' => ['required', 'min:6'], 
             'product_price' => ['required', 'integer']
         ];
-         // Cách 1
-        // $messages = [
-        //     'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập', 
-        //     'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min kí tự', 
-        //     'product_price.required' => 'Giá sản phẩm bắt buộc phải nhập', 
-        //     'product_price.integer' => 'Giá sản phẩm phải là số' 
-        // ];
         // Cách 2
         $messages = [
             'required' => "Trường :attribute bắt buộc phải nhập",
             'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
             'integer' => 'Trường :attribute phải là số',
-            'uppercase' => 'Trường :attribute phải viết hoa'
         ];
 
         $attributes = [
@@ -92,27 +83,21 @@ class HomeController extends Controller
             'product_price' => "Giá sản phẩm"
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
-        // $validator->validate();
-        if ($validator->fails()){  //Ktra xem Validate có thành công hay không 
-            $validator->errors()->add('msg', 'Vui lòng kiểm tra lại dữ liệu');
-            // return 'Validate thất bại';
-        }else{
-            // return 'Validate thành công';
-            return redirect()->route('product')->with('msg', 'Validate thành công'); //Khi nhập DL thành công -> trang sản phẩm 
-        }
-        return back()->withErrors($validator);
-        // C1
-        // $request->validate([
-        //     'product_name' => 'required|min:6',  // OR 'product_name' => ['required', 'integer', 'min:6']
-        //     'product_price' => 'required|integer'
-        // ], [
-        //     'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập', 
-        //     'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min kí tự', 
-        //     'product_price.required' => 'Giá sản phẩm bắt buộc phải nhập', 
-        //     'product_price.integer' => 'Giá sản phẩm phải là số' 
-        // ]);
+        // $validator = Validator::make($request->all(), $rules, $messages, $attributes);
 
+        // $validator->validate();
+        // $request->validate($rules, $messages);
+        return response()->json(['status'=>'success']);
+        // $validator->validate();
+        // if ($validator->fails()){  //Ktra xem Validate có thành công hay không 
+        //     $validator->errors()->add('msg', 'Vui lòng kiểm tra lại dữ liệu');
+        //     // return 'Validate thất bại';
+        // }else{
+        //     // return 'Validate thành công';
+        //     return redirect()->route('product')->with('msg', 'Validate thành công'); //Khi nhập DL thành công -> trang sản phẩm 
+        // }
+        // return back()->withErrors($validator);
+       
         // Cách 2
         // $message = [
         //     'required' => "Trường :attribute bắt buộc phải nhập",
