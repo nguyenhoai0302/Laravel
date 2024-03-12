@@ -51,7 +51,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/san-pham', [HomeController::class, 'products'])->name('product');
 Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
 Route::get('them-san-pham', [HomeController::class, 'getAdd']);
-Route::post('them-san-pham', [HomeController::class, 'postAdd']);
+Route::post('them-san-pham', [HomeController::class, 'postAdd'])->name('post-add');
 Route::put('them-san-pham', [HomeController::class, 'putAdd']);
 
 // Route::get('/demo-response', function() {
