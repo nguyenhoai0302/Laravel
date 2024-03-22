@@ -34,30 +34,32 @@ class Users extends Model
         return DB::statement($sql);
     }
     public function learnQueryBuilder(){
+        DB::enableQueryLog();
         // 1. Lấy all DL trong bảng
         $lists = DB::table($this->table)
-        ->select('email','fullname')
+        ->select('email','fullname', 'id', 'update_at')
         // ->where('id', '>', 1) 
-     
-        // ->where('id', '>=', 3)
-        // ->where('id', '<=', 5)
-        // ->where([ //sd mảng 2 chiều
-        //     [
-        //         'id','>=', 3
-        //     ],
-        //     [
-        //         'id','<=', 5
-        //     ]
-        // ])
+        // ->where('id', 3)
+        // ->where(function($query){
+        //     $query->where('id', '<', 5);
+        //     $query->orwhere('id', '>', 5);
+        // })
 
-        ->where('id', 3)
-        ->orwhere('id', 5)
+        //->where('fullname', 'like', '%Nguyễn Hoài%')  // truy vấn tìm kiếm "LIKE"
+        //->whereBetween('id', [3,6])                   // truy vấn trong khoảng "whereBetween
+        //->whereNotBetween('id', [3,6])                  // truy vấn không trong khoảng "whereNotBetween -> nằm ngoài
+
+        //->whereIn('id', [3,6])                           // truy vấn toán tử whereIn / whereNotIn
+        ->whereNotNull('update_at')                        //truy vấn ktra NULL "whereNull / whereNotNull"
         ->get(); //-> Trả về array
+        //->toSql(); //-> debug câu lệnh SQL
         dd($lists);
+        $sql = DB::getQueryLog();
+        dd($sql);
 
         // 2. Lấy 1 bản ghi đầu tiên của bảng (Lấy thông tin chi tiết)
         $detail = DB::table($this->table)->first(); //-> Trả về 1 class
-        dd($detail->email);  //Muốn lấy gtri cụ thể
+        //dd($detail->email);  //Muốn lấy gtri cụ thể
 
         // 3. Select cột trong bảng, đặt seclect trước get or first nếu để sau thì bị sẽ không lấy DL đc
         // 4. Truy vấn có ĐK WHERE (>, < , = , <>)
