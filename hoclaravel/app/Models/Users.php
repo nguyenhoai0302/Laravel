@@ -33,4 +33,33 @@ class Users extends Model
     public function statementUser($sql){
         return DB::statement($sql);
     }
+    public function learnQueryBuilder(){
+        // 1. Lấy all DL trong bảng
+        $lists = DB::table($this->table)
+        ->select('email','fullname')
+        // ->where('id', '>', 1) 
+     
+        // ->where('id', '>=', 3)
+        // ->where('id', '<=', 5)
+        // ->where([ //sd mảng 2 chiều
+        //     [
+        //         'id','>=', 3
+        //     ],
+        //     [
+        //         'id','<=', 5
+        //     ]
+        // ])
+
+        ->where('id', 3)
+        ->orwhere('id', 5)
+        ->get(); //-> Trả về array
+        dd($lists);
+
+        // 2. Lấy 1 bản ghi đầu tiên của bảng (Lấy thông tin chi tiết)
+        $detail = DB::table($this->table)->first(); //-> Trả về 1 class
+        dd($detail->email);  //Muốn lấy gtri cụ thể
+
+        // 3. Select cột trong bảng, đặt seclect trước get or first nếu để sau thì bị sẽ không lấy DL đc
+        // 4. Truy vấn có ĐK WHERE (>, < , = , <>)
+    }
 }
