@@ -36,8 +36,8 @@ class Users extends Model
     public function learnQueryBuilder(){
         DB::enableQueryLog();
         // 1. Lấy all DL trong bảng
-        $lists = DB::table($this->table)
-        ->select('email','fullname', 'id', 'update_at')
+        // $lists = DB::table($this->table)
+        // ->select('email','fullname', 'id', 'update_at', 'create_at')
         // ->where('id', '>', 1) 
         // ->where('id', 3)
         // ->where(function($query){
@@ -47,12 +47,23 @@ class Users extends Model
 
         //->where('fullname', 'like', '%Nguyễn Hoài%')  // truy vấn tìm kiếm "LIKE"
         //->whereBetween('id', [3,6])                   // truy vấn trong khoảng "whereBetween
-        //->whereNotBetween('id', [3,6])                  // truy vấn không trong khoảng "whereNotBetween -> nằm ngoài
+        //->whereNotBetween('id', [3,6])                // truy vấn không trong khoảng "whereNotBetween -> nằm ngoài
 
-        //->whereIn('id', [3,6])                           // truy vấn toán tử whereIn / whereNotIn
-        ->whereNotNull('update_at')                        //truy vấn ktra NULL "whereNull / whereNotNull"
-        ->get(); //-> Trả về array
+        //->whereIn('id', [3,6])                        // truy vấn toán tử whereIn / whereNotIn
+        //->whereNotNull('update_at')                   // truy vấn ktra NULL "whereNull / whereNotNull"
+        //->whereYear('create_at', '2024')                   // truy vấn Date (whereDate, whereMonth, whereDay, whereYear)
+        
+        // 1. So sánh 2 cột bằng nhau & SS với các toán tử so sánh
+        //->whereColumn('create_at', '=', 'update_at')
+        //->get(); //-> Trả về array
         //->toSql(); //-> debug câu lệnh SQL
+
+        // 2. Nối bảng "join"
+        $lists = DB::table('users')
+        ->select('users.*', 'groups.name as group_name')
+        //->join('groups', 'users.group_id', '=', 'groups.id')
+        ->leftJoin('groups', 'users.group_id', '=', 'groups.id')   // Hiện thị all Dl bên trái "users" -> ngược với rightJoin lấy all DL bên phải "groups"
+        ->get();
         dd($lists);
         $sql = DB::getQueryLog();
         dd($sql);
