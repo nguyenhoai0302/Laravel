@@ -59,7 +59,7 @@ class Users extends Model
         //->toSql(); //-> debug câu lệnh SQL
 
         // 2. Nối bảng "join"
-        $lists = DB::table('users')
+        //$lists = DB::table('users')
         //->select('users.*', 'groups.name as group_name')
         //->join('groups', 'users.group_id', '=', 'groups.id')
         //->leftJoin('groups', 'users.group_id', '=', 'groups.id')   // Hiện thị all Dl bên trái "users" -> ngược với rightJoin lấy all DL bên phải "groups"
@@ -76,10 +76,50 @@ class Users extends Model
         // ->limit(2)      // Giới hạn 
         // ->offset(1)    // loại bỏ những bản ghi không muốn hiển thị
         
-        ->take(2)
-        ->skip(2)
-        ->get();
-        dd($lists);
+        // ->take(2)
+        // ->skip(2)
+        // ->get();
+        //dd($lists);
+
+        // 4. Thêm DL vào bảng
+        // $status = DB::table('users')->insert([      // chỉ trả về TRUE or FALSE
+        //     'fullname' => 'Nguyễn Thị Hoài',
+        //     'email' => 'hoainguyen@gmail.com',
+        //     'group_id' => 1,
+        //     'create_at' => date('Y-m-d H:i:s')
+        // ]);
+        //dd($status);
+
+        // 4. Lấy id khi insert
+        //$lastId = DB::getPdo()->lastInsertId();
+        // $lastId = DB::table('users')->insertGetId([     // sau khi insert -> trả về id luôn
+        //     'fullname' => 'Nguyễn Thị Hoài',
+        //     'email' => 'hoainguyen@gmail.com',
+        //     'group_id' => 1,
+        //     'create_at' => date('Y-m-d H:i:s')
+        // ]);
+        // dd($lastId);
+
+        // 5. Cập nhật bản ghi -> Trong Th không có where thì sẽ cập nhật all
+        // $status = DB::table('users')
+        // ->where('id', 11)
+        // ->update([
+        //     'fullname' => 'Trần Nguyên',
+        //     'email' => 'nguyentran@gmail.com',
+        //     'update_at' => date('Y-m-d H:i:s')
+        // ]);
+        // dd($status);
+
+        // 6. Xóa bản ghi
+        // $status = DB::table('users')
+        // ->where('id', 11)
+        // ->delete();
+
+        // 7. Đếm số bản ghi 
+        $count = DB::table('users')->where('id', '>', 5)->count();
+        // $count = count($lists);
+        // dd($count);
+
         $sql = DB::getQueryLog();
         dd($sql);
 
