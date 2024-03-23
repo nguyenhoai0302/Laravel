@@ -60,9 +60,24 @@ class Users extends Model
 
         // 2. Nối bảng "join"
         $lists = DB::table('users')
-        ->select('users.*', 'groups.name as group_name')
+        //->select('users.*', 'groups.name as group_name')
         //->join('groups', 'users.group_id', '=', 'groups.id')
-        ->leftJoin('groups', 'users.group_id', '=', 'groups.id')   // Hiện thị all Dl bên trái "users" -> ngược với rightJoin lấy all DL bên phải "groups"
+        //->leftJoin('groups', 'users.group_id', '=', 'groups.id')   // Hiện thị all Dl bên trái "users" -> ngược với rightJoin lấy all DL bên phải "groups"
+        
+        // 3. Sắp xếp
+        // ->orderBy('create_at', 'asc')     
+        // ->orderBy('id', 'desc')
+        //->inRandomOrder()                                            // Sắp xếp ngẫu nhiên -> mỗi khi load sẽ sắp xếp lại 
+        
+        //->select(DB::raw('count(id) as email_count'), 'email')
+        // ->groupBy('email')                                            // Truy vấn theo nhóm 
+        // ->having('email_count', '>=', 2)
+        
+        // ->limit(2)      // Giới hạn 
+        // ->offset(1)    // loại bỏ những bản ghi không muốn hiển thị
+        
+        ->take(2)
+        ->skip(2)
         ->get();
         dd($lists);
         $sql = DB::getQueryLog();
