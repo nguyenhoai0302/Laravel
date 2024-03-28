@@ -52,7 +52,8 @@ class Users extends Model
         
     }
     public function addUser($data){
-        DB::insert('INSERT INTO users (fullname, email, create_at) values (?, ?, ?)', $data);
+        // DB::insert('INSERT INTO users (fullname, email, create_at) values (?, ?, ?)', $data);
+        return DB::table($this->table)->insert($data);
     }
     public function getDetail($id){
         return DB::select('SELECT * FROM ' . $this->table . ' WHERE id=?', [$id]);
