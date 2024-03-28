@@ -11,7 +11,7 @@ class Users extends Model
     use HasFactory;
     protected $table = 'users';
 
-    public function getAllUsers($filters = [], $keywords=null, $sortByArr = null){
+    public function getAllUsers($filters = [], $keywords=null, $sortByArr = null, $perPage = null){
         //$users = DB::select('SELECT * from users ORDER BY create_at DESC');
         // DB::enableQueryLog();
         $users = DB::table($this->table)
@@ -40,10 +40,16 @@ class Users extends Model
                 $query->orWhere('email','like', '%'.$keywords.'%');
             });
         }
-        $users = $users->get();
+        // $users = $users->get();
         // $sql = DB::getQueryLog();
         // dd($sql);
+        if (!empty($perPage)) {
+            $users = $users->paginate($perPage)->withQueryString();   // $perPage bản ghi trên 1 trang
+        } else {
+            $users = $users->get();
+        }
         return $users;
+        
     }
     public function addUser($data){
         DB::insert('INSERT INTO users (fullname, email, create_at) values (?, ?, ?)', $data);
