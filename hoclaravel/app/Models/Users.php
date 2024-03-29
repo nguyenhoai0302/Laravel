@@ -11,12 +11,14 @@ class Users extends Model
     use HasFactory;
     protected $table = 'users';
 
+    //B38-39: Hiện thi DL và sắp xếp
     public function getAllUsers($filters = [], $keywords=null, $sortByArr = null, $perPage = null){
         //$users = DB::select('SELECT * from users ORDER BY create_at DESC');
         // DB::enableQueryLog();
         $users = DB::table($this->table)
         ->select('users.*', 'groups.name as group_name')
-        ->join('groups','users.group_id', '=', 'groups.id');
+        ->join('groups','users.group_id', '=', 'groups.id')
+        ->where('trash', 0);
 
         $orderBy = 'users.create_at';
         $orderType = 'desc';
@@ -43,6 +45,7 @@ class Users extends Model
         // $users = $users->get();
         // $sql = DB::getQueryLog();
         // dd($sql);
+        // B40: Phân trang 
         if (!empty($perPage)) {
             $users = $users->paginate($perPage)->withQueryString();   // $perPage bản ghi trên 1 trang
         } else {
@@ -63,10 +66,14 @@ class Users extends Model
         // $data[] = $id;
         // return DB::update('UPDATE '.$this->table.' SET fullname=?, email=?, update_at=? where id = ?', $data);
 
+        //B42: Cập nhật DL
         return DB::table($this->table)->where('id', $id)->update($data);
     }
     public function deleteUser($id){
-        return DB::delete("DELETE FROM $this->table WHERE id=?", [$id]);
+        // return DB::delete("DELETE FROM $this->table WHERE id=?", [$id]);
+
+        //B43: Xóa DL
+        return DB::table($this->table)->where('id', $id)->delete();
     }
     public function statementUser($sql){
         return DB::statement($sql);
