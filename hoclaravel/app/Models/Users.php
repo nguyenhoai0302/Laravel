@@ -59,10 +59,11 @@ class Users extends Model
         return DB::select('SELECT * FROM ' . $this->table . ' WHERE id=?', [$id]);
     }
     public function updateUser($data, $id){
-
         // $data = array_merge($data, [$id]);
-        $data[] = $id;
-        return DB::update('UPDATE '.$this->table.' SET fullname=?, email=?, update_at=? where id = ?', $data);
+        // $data[] = $id;
+        // return DB::update('UPDATE '.$this->table.' SET fullname=?, email=?, update_at=? where id = ?', $data);
+
+        return DB::table($this->table)->where('id', $id)->update($data);
     }
     public function deleteUser($id){
         return DB::delete("DELETE FROM $this->table WHERE id=?", [$id]);
